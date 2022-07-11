@@ -5,9 +5,12 @@ import com.student.registrations.api.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -24,8 +27,8 @@ public class StudentController {
 
     @RequestMapping("/getStudents")
     public void getAllStudents(Model model) {
-        List<Student> customers = studentService.findAll();
-        model.addAttribute("Students", customers);
+        List<Student> students = studentService.findAll();
+        model.addAttribute("Students", students);
     }
 
     @RequestMapping("/addStudent")
@@ -48,7 +51,7 @@ public class StudentController {
         return "redirect:/students/home";
     }
 
-    @RequestMapping ("/saveStudent")
+    @PostMapping("/saveStudent")
     public String saveStudent(Model model, @RequestParam("id") int id,
                                @RequestParam("firstName") String firstName,
                                @RequestParam("lastName") String lastName,
